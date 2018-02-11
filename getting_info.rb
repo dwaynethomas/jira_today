@@ -1,22 +1,19 @@
 require 'jira-ruby' #loads only if jira-ruby not loaded yet
 require 'pry'
+require 'yaml'
+
 personal_information =[]
 
-#class method
-File.open('donotpush_config.txt').each do |line|
-  personal_information << line.chomp #takes last element without white space and adds it to the array
-end
+config_jira_hash = YAML.load_file('donotpush_jira.yml')
 
-#instance method
-# file = File.new('donotpush_config.txt', 'r')
-# personal_information = file.readlines
-# file.close
+config_personal_auth = YAML.load_file('donotpush_auth_info.yml')
 
-#hash-long list defined all at once, rockets used bc it's a hash
+
+#hash-long list defined all at once, rockets used
 options = {
-    :username     => personal_information[0],
-    :password     => personal_information[1],
-    :site         => personal_information[2],
+    :username     => config_personal_auth[:username],
+    :password     => config_personal_auth[:password],
+    :site         => config_jira_hash[:site],
     :context_path => '',
     :auth_type    => :basic
 }
@@ -25,6 +22,16 @@ options = {
 client = JIRA::Client.new(options)
 
 # instance, uses class method find inside Project class
-project = client.Project.find(personal_information[3])
+# project = client.Project.find(config_personal_hash[:project_name])
+
+ issue = client.Filter.find(14725).issues
+
+
+# mine = client.Issue.jql("ASSIGNEE = \"#{config_jira_hash[:assignee]}\""
+#                         order by "LAST VIEWED = \"#{config_jira_hash[:last_viewed]}\" DESC")
+
 
 binding.pry
+
+
+

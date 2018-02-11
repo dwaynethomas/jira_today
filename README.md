@@ -10,13 +10,19 @@ Test will verify that we are grabbing the right information.
 -test verify results that a user edited
 -test verify results based on the date that a user has edited
 
-rvm use 2.3.1
-rvm current
-gem install jira-ruby
+Instructions for use:
 
 gem install pry
+gem install jira-ruby
 
+rvm use 2.3.1
+rvm current
+
+binding.pry
 q  #stops reading in program
 exit-program #stops program
 
-hw find ticket with my name on it. .method helps with each object.
+hw find ticket with my name on it. 
+.method helps with each object.
+(find smaller filter)
+hw split authentication and configuration files
