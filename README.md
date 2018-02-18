@@ -22,7 +22,7 @@ binding.pry
 q  #stops reading in program
 exit-program #stops program
 
-next assignments
+next assignments:
 practice asking what an object is?
 research accessing dataobjects with arrays
 research using program blocks
