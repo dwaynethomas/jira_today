@@ -4,9 +4,9 @@ require 'yaml'
 
 personal_information =[]
 
-config_jira_hash = YAML.load_file('donotpush_jira.yml')
+config_jira_hash = YAML.load_file('donotpush_folder/donotpush_jira.yml')
 
-config_personal_auth = YAML.load_file('donotpush_auth_info.yml')
+config_personal_auth = YAML.load_file('donotpush_folder/donotpush_auth_info.yml')
 
 
 #hash-long list defined all at once, rockets used
@@ -24,7 +24,22 @@ client = JIRA::Client.new(options)
 # instance, uses class method find inside Project class
 # project = client.Project.find(config_personal_hash[:project_name])
 
- issue = client.Filter.find(14725).issues
+# issues reported by me
+ issues = client.Filter.find(14725).issues
+
+#find issues that are of type story
+stories = []
+issues.each do |issue|
+  if issue.attrs['fields']['issuetype']['name'] == 'Story'
+    stories << issue
+  end
+end
+
+
+
+# individual = issues[0]
+#
+# individual.attrs.each_key { |key| puts key}
 
 
 # mine = client.Issue.jql("ASSIGNEE = \"#{config_jira_hash[:assignee]}\""
