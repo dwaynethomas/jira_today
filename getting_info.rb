@@ -2,8 +2,6 @@ require 'jira-ruby' #loads only if jira-ruby not loaded yet
 require 'pry'
 require 'yaml'
 
-personal_information =[]
-
 config_jira_hash = YAML.load_file('donotpush_folder/donotpush_jira.yml')
 
 config_personal_auth = YAML.load_file('donotpush_folder/donotpush_auth_info.yml')
@@ -35,6 +33,18 @@ issues.each do |issue|
   end
 end
 
+jira_keys = []
+    stories.each do |story|
+    jira_keys << story.attrs['key']
+    #how do we find summary, instead of description?
+    jira_keys << story.attrs['fields']['description']
+    end
+
+binding.pry
+
+
+#program block returns each story preferably in binding.pry
+#stories.each { |story| puts story.attrs['fields']['issuetype']['name'] }
 
 
 # individual = issues[0]

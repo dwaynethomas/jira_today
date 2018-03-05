@@ -1,4 +1,5 @@
 # jira_today - a project to practice TDD against apis
+# https://github.com/sumoheavy/jira-ruby
 
 As a user, one wants to know how many Jira issues as a user have edited today so that I can share that information with my teammates.
 
@@ -26,3 +27,5 @@ next assignments:
 practice asking what an object is?
 research accessing dataobjects with arrays
 research using program blocks
+
+api results will be made into an object one can practice TDD against.
