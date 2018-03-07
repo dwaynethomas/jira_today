@@ -34,11 +34,33 @@ issues.each do |issue|
 end
 
 jira_keys = []
-    stories.each do |story|
-    jira_keys << story.attrs['key']
-    #how do we find summary, instead of description?
-    jira_keys << story.attrs['fields']['description']
+stories.each do |story|
+  new_hash = Hash.new
+  new_hash[:key] = story.attrs['key']
+  #how do we find summary, instead of description?
+  new_hash[:description] = story.attrs['fields']['description']
+  jira_keys << new_hash
+end
+
+def formatted_jira_keys(jira_keys)
+  jira_keys.each do |jira|
+    jira.each do |key, value|
+      string_of_dashes
+      puts key.to_s + ':' + value
     end
+  end
+
+
+string_of_dashes
+end
+
+def string_of_dashes(length = 10)
+  length.times { print '-'}
+  print "\n"
+end
+
+formatted_jira_keys(jira_keys)
+
 
 binding.pry
 

@@ -23,9 +23,5 @@ binding.pry
 q  #stops reading in program
 exit-program #stops program
 
-next assignments:
-practice asking what an object is?
-research accessing dataobjects with arrays
-research using program blocks
 
 api results will be made into an object one can practice TDD against.
