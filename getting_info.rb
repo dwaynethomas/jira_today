@@ -33,28 +33,38 @@ issues.each do |issue|
   end
 end
 
+
+
 jira_keys = []
 stories.each do |story|
+  #creates an hash instead of array to make accessing dataobjects easier.
   new_hash = Hash.new
-  new_hash[:key] = story.attrs['key']
+  new_hash[:key] = story.key
   #how do we find summary, instead of description?
-  new_hash[:description] = story.attrs['fields']['description']
+  new_hash[:description] = story.description
+  #gets summary value of the jira issue
+  new_hash[:summary] = story.summary
   jira_keys << new_hash
 end
 
+binding.pry
+
+#formats keys for printing input
 def formatted_jira_keys(jira_keys)
   jira_keys.each do |jira|
+    #prints  string at beginning of key pair
+    string_of_dashes
     jira.each do |key, value|
-      string_of_dashes
-      puts key.to_s + ':' + value
+      #shows first 100 characters
+      puts key.to_s + ': ' + value[0..100]
     end
   end
 
-
+  #prints ending string
 string_of_dashes
 end
 
-def string_of_dashes(length = 10)
+def string_of_dashes(length = 20)
   length.times { print '-'}
   print "\n"
 end
@@ -62,7 +72,6 @@ end
 formatted_jira_keys(jira_keys)
 
 
-binding.pry
 
 
 #program block returns each story preferably in binding.pry
@@ -78,7 +87,6 @@ binding.pry
 #                         order by "LAST VIEWED = \"#{config_jira_hash[:last_viewed]}\" DESC")
 
 
-binding.pry
 
 
 
