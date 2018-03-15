@@ -35,33 +35,53 @@ end
 
 
 
+#give me custom fields that are not nil
+def available_custom_fields(story)
+  #iterates over story hash and returns custom attributes with data
+  story.attrs['fields'].each do |field_name, value|
+      if field_name == 'duedate'
+        puts field_name
+        puts value
+     end
+  end
+  nil
+end
+
+
+available_custom_fields(stories[0])
+
+
 jira_keys = []
 stories.each do |story|
   #creates an hash instead of array to make accessing dataobjects easier.
   new_hash = Hash.new
-  new_hash[:key] = story.key
+  new_hash[:issue_no] = story.key
   #how do we find summary, instead of description?
   new_hash[:description] = story.description
   #gets summary value of the jira issue
   new_hash[:summary] = story.summary
+  new_hash[:due_date] = Date.parse(story.attrs['fields']['duedate'])
+
   jira_keys << new_hash
 end
 
-binding.pry
 
 #formats keys for printing input
 def formatted_jira_keys(jira_keys)
   jira_keys.each do |jira|
     #prints  string at beginning of key pair
     string_of_dashes
-    jira.each do |key, value|
-      #shows first 100 characters
-      puts key.to_s + ': ' + value[0..100]
-    end
+    puts 'Issue no.: ' + jira[:issue_no]
+    puts 'Summary: ' + jira[:summary][0..100]
+    puts 'Due Date: ' + strftime(jira[:due_date]).to_s
+
   end
 
+binding.pry
+exit
   #prints ending string
 string_of_dashes
+
 end
 
 def string_of_dashes(length = 20)
@@ -88,5 +108,6 @@ formatted_jira_keys(jira_keys)
 
 
 
+#File.open('output.txt', 'w') {|file| file.puts stories[0].attrs}
 
 
